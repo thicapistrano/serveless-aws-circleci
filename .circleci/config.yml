@@ -5,7 +5,7 @@ jobs:
       - image: circleci/node:12.22
 
     working_directory: ~/repo
-
+    parallelism: 4
     steps:
       - checkout
 
