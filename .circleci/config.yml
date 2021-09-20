@@ -22,9 +22,6 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-
-      - run:
-          name: Deploy application
-          command: sls deploy --stage pre
 
   test: 
     docker:
@@ -34,7 +31,13 @@ jobs:
       - run:
           name: Run tests with coverage
           command: npm test --coverage
-
+  
+  deploy: 
+    docker:
+      - image: circleci/node:12.22
+    - run:
+        name: Deploy application
+        command: sls deploy --stage pre
 
 workflows:
   build_and_test:
@@ -43,3 +46,7 @@ workflows:
       - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - build
+            - test
