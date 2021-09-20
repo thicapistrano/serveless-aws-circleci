@@ -35,9 +35,11 @@ jobs:
   deploy: 
     docker:
       - image: circleci/node:12.22
-    - run:
-        name: Deploy application
-        command: sls deploy --stage pre
+    steps:
+      - checkout
+      - run:
+          name: Deploy application
+          command: sls deploy --stage pre
 
 workflows:
   build_and_test:
